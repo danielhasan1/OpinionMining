@@ -1,0 +1,88 @@
+<!-- <div>{{dayOfWeek}}</div>
+<div>{{whenCreated}}</div> -->
+<div id="pchart"></div>
+<div id="cchart"></div>
+<div id="chart"></div>
+ {% for element_list in reddit %}
+
+    <div class="row">
+      <div class="span4"> <img src="{{ element_list.thumbnail }}" width="100" 
+                               height="100" style="float:left; margin-right:20px;"/> 
+         <h5 style="margin-top:40px; font-size:16px; width:600px;">
+             <a href="https://reddit.com/{{ element_list.permalink }}" target="_blank" title="{{ element_list.title }}">{{ element_list.title }}</a>
+       </h5>
+  
+       <div class="description"><a href="https://reddit.com/{{ element_list.permalink }}"><b>{{ element_list.num_comments }} comments</b>
+                              </a>submited by <b>{{ element_list.author }}</b>
+                              <br />
+
+            <a href="https://reddit.com/{{ element_list.url }}" target="_blank" class="link" style="color:#539D36;"> {{ element_list.url }}
+            </a>
+
+      </div>
+    </div>
+    </div>
+    
+    
+{% endfor %}
+<script type="text/javascript"> 
+
+  var a = JSON.parse("{{whenCreated}}".replace(/&#39;/g,`"`))
+  var dates_a={}
+  Object.keys(a).forEach(function(x){
+    dates_a[new Date(x).getTime()/1000]=a[x]
+  })
+  let data = {
+    labels: Object.keys(a),
+    datasets: [
+      {
+        title: "Created today", color: "light-blue",
+        values: Object.values(a)
+      }
+    ]
+  };
+  let chart = new Chart({
+    parent: "#chart", // or DOM element
+    title: "Tweets per day",
+    data: dates_a,
+    type: 'heatmap', // or 'line', 'scatter', 'pie', 'percentage'
+    height: 250
+  });
+
+  var b = JSON.parse("{{dayOfWeek}}".replace(/&#39;/g,`"`))
+  let bdata = {
+    labels: Object.keys(b),
+    datasets: [
+      {
+        title: "Created today", color: "light-blue",
+        values: Object.values(b)
+      }
+    ]
+  };
+  let bchart = new Chart({
+    parent: "#pchart", // or DOM element
+    title: "Reddit posts in a week",
+    data: bdata,
+    type: 'percentage', // or 'line', 'scatter', 'pie', 'percentage'
+    height: 250
+  });
+
+  var c = JSON.parse("{{dayOfWeek}}".replace(/&#39;/g,`"`))
+  let cdata = {
+    labels: Object.keys(b),
+    datasets: [
+      {
+        title: "Created today", color: "light-blue",
+        values: Object.values(b)
+      }
+    ]
+  };
+  let cchart = new Chart({
+    parent: "#cchart", // or DOM element
+    title: "Reddit posts in a week",
+    data: cdata,
+    type: 'line', // or 'line', 'scatter', 'pie', 'percentage'
+    height: 250
+  });
+ 
+</script>

@@ -1,0 +1,45 @@
+<!-- <div id="twitter-right"> -->
+	<div id="sentimentchart"></div>
+<div id="score_strength" class="box_analytics" style="margin-right:40px;">
+    <div class="score">54<span class="score_title"></span></div>
+    <div class="score_title">Positive</div>
+</div>
+<div id="score_sentiment" class="box_analytics">
+    <div class="score">12</div>
+    <div class="score_title">Negative</div>
+    <br />
+</div>
+<div id="score_passion" class="box_analytics" style="margin-right:40px; margin-bottom:10px;">
+    <div class="score">56<span class="score_title"></span></div>
+    <div class="score_title">Neutral</div>
+</div>
+<div id="score_reach" class="box_analytics" style="margin-bottom:10px;">
+    <div class="score"><span class="score_title"></span></div>
+    <div class="score_title"></div>
+</div>
+
+<!-- </div> -->
+<script type="text/javascript">
+var sentiment = {}
+sentiment['Positive']={{polarity.positive}}
+sentiment['Negative']={{polarity.negative}}
+sentiment['Neutral']={{polarity.neutral}}
+sentiment['Positive']=54
+sentiment['Negative']=12
+sentiment['Neutral']=56
+  let sentimentdata = {
+    labels: Object.keys(sentiment),
+    datasets: [
+      {
+        values: Object.values(sentiment)
+      }
+    ]
+  };
+  let sentimentchart = new Chart({
+    parent: "#sentimentchart", // or DOM element
+    title: "Sentiment Analysis",
+    data: sentimentdata,
+    type: 'pie', // or 'line', 'scatter', 'pie', 'percentage'
+    height:'150'
+  });
+</script>
